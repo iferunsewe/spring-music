@@ -1,9 +1,26 @@
 resources:
-  
-  # git resource 
-  # cf resource
+- name: spring-music
+  type: git
+  source:
+    uri: https://github.com/iferunsewe/spring-music.git
+    branch: master
+- name: spring-music-cf-resource
+  type: cf
+  source:
+    api: https://api.run.pivotal.io
+    username: ((cf_resource_username))
+    password: ((cf_resource_password))
+    organization: engineerbetter
+    space: development
 
 jobs:
+- name: build-cf
+  plan:
+  - get: spring-music
+    trigger: true
+  - put: spring-music-cf-resource
+    params: 
+      manifest: spring-music/manifest.yml 
   # get from the git resource
   # put in the cf resource
 
@@ -11,3 +28,6 @@ jobs:
   #api:https://api.run.pivotal.io
   #space: development
   #organization: engineerbetter
+
+
+# Every time there is a push on the git repo there will be a get and a puts to the cf resource
