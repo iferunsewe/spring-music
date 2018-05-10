@@ -1,0 +1,13 @@
+resources:
+  
+  # git resource 
+  # cf resource
+
+jobs:
+  # get from the git resource
+  # put in the cf resource
+
+
+  #api:https://api.run.pivotal.io
+  #space: development
+  #organization: engineerbetter
