@@ -33,6 +33,7 @@ jobs:
           ls -la
           cd spring-music
           ./gradlew clean assemble
+          cp -r build ../compiled-spring-music
         user: root
       image_resource:
         type: docker-image
