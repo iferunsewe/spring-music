@@ -18,9 +18,30 @@ jobs:
   plan:
   - get: spring-music
     trigger: true
+  - task: gradle-build
+    config:
+      platform: linux
+      inputs: 
+      - name: spring-music
+      outputs:
+      - name: compiled-spring-music
+      run:
+        path: /bin/bash
+        args:
+        - -euxc
+        - |
+          ls -la
+          cd spring-music
+          ./gradlew clean assemble
+        user: root
+      image_resource:
+        type: docker-image
+        source:
+          repository: gradle
   - put: spring-music-cf-resource
-    params: 
-      manifest: spring-music/manifest.yml 
+    params:
+      manifest: spring-music/manifest.yml
+      path: compiled-spring-music
   # get from the git resource
   # put in the cf resource
 
